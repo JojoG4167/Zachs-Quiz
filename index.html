@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<title>Zach's Little Quiz 💌</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 15px;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #3b3b3b,
+            #171717 55%,
+            #0b0b0b
+        );
+
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 100%;
+    max-width: 450px;
+
+    background: #191919;
+
+    border: 1px solid #3a3a3a;
+
+    border-radius: 25px;
+
+    padding: 27px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.55);
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* MENU */
+
+#menu {
+    text-align: center;
+}
+
+.menuEmoji {
+    font-size: 65px;
+}
+
+.menuTitle {
+    margin: 5px 0 10px;
+
+    font-size: 34px;
+    font-weight: 800;
+}
+
+.menuSubtitle {
+    color: #999;
+
+    line-height: 1.5;
+
+    margin-bottom: 30px;
+}
+
+.startButton {
+    width: 100%;
+
+    padding: 17px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: white;
+    color: black;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* NAME */
+
+#nameScreen {
+    text-align: center;
+}
+
+.nameEmoji {
+    font-size: 55px;
+}
+
+.nameTitle {
+    font-size: 29px;
+    margin: 5px 0 10px;
+}
+
+.nameSubtitle {
+    color: #999;
+    margin-bottom: 25px;
+}
+
+.nameInput {
+    width: 100%;
+
+    padding: 16px;
+
+    border-radius: 14px;
+
+    border: 1px solid #444;
+
+    background: #252525;
+
+    color: white;
+
+    font-size: 17px;
+
+    text-align: center;
+
+    outline: none;
+}
+
+.nameInput:focus {
+    border-color: white;
+}
+
+.nameContinue {
+    width: 100%;
+
+    margin-top: 13px;
+
+    padding: 16px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: white;
+    color: black;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.nameError {
+    color: #e57373;
+
+    min-height: 20px;
+
+    margin-top: 10px;
+}
+
+
+/* QUIZ */
+
+.top {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+}
+
+.quizTitle {
+    color: #aaa;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.progressText {
+    color: #777;
+
+    font-size: 13px;
+}
+
+.progress {
+    height: 6px;
+
+    width: 100%;
+
+    background: #333;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-bottom: 30px;
+}
+
+.progressBar {
+    height: 100%;
+
+    width: 10%;
+
+    background: white;
+
+    transition: width .3s;
+}
+
+.question {
+    font-size: 25px;
+
+    line-height: 1.3;
+
+    margin-bottom: 25px;
+}
+
+.answers {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.answer {
+    width: 100%;
+
+    padding: 16px;
+
+    background: #252525;
+
+    color: white;
+
+    border: 1px solid #3b3b3b;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+.answer.selected {
+    background: white;
+
+    color: black;
+
+    border-color: white;
+}
+
+.buttonRow {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.submitButton,
+.nextButton {
+    flex: 1;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+.submitButton {
+    background: white;
+
+    color: black;
+}
+
+.nextButton {
+    background: #3b3b3b;
+
+    color: white;
+}
+
+.feedback {
+    min-height: 20px;
+
+    margin-top: 14px;
+
+    color: #999;
+
+    font-size: 14px;
+}
+
+
+/* HOMECOMING */
+
+#homecoming {
+    text-align: center;
+}
+
+.hocoEmoji {
+    font-size: 68px;
+}
+
+.hocoTitle {
+    font-size: 32px;
+
+    margin: 10px 0;
+}
+
+.hocoQuestion {
+    font-size: 22px;
+
+    line-height: 1.5;
+
+    margin-top: 15px;
+}
+
+.hocoArea {
+    position: relative;
+
+    height: 320px;
+
+    margin-top: 20px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+}
+
+#yesButton,
+#noButton {
+    position: absolute;
+
+    padding: 16px 24px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+#yesButton {
+    left: 18px;
+    top: 85px;
+
+    background: #2ecc71;
+
+    color: white;
+}
+
+#noButton {
+    right: 18px;
+    top: 85px;
+
+    background: #e74c3c;
+
+    color: white;
+
+    z-index: 10;
+}
+
+.noMessage {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 15px;
+
+    color: #e57373;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+/* YES SCREEN */
+
+#lovely {
+    text-align: center;
+}
+
+.lovelyEmoji {
+    font-size: 70px;
+
+    margin-bottom: 10px;
+}
+
+.lovelyTitle {
+    font-size: 32px;
+
+    margin-bottom: 18px;
+}
+
+.lovelyText {
+    color: #d0d0d0;
+
+    font-size: 17px;
+
+    line-height: 1.75;
+}
+
+.lovelyName {
+    color: white;
+
+    font-weight: bold;
+}
+
+.lovelyFooter {
+    margin-top: 25px;
+
+    color: #888;
+
+    font-size: 14px;
+}
+
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .card {
+        padding: 23px;
+    }
+
+    .menuTitle {
+        font-size: 29px;
+    }
+
+    .question {
+        font-size: 23px;
+    }
+
+    #yesButton,
+    #noButton {
+        padding: 15px 21px;
+
+        font-size: 15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="card">
+
+
+<!-- MENU -->
+
+<div id="menu">
+
+    <div class="menuEmoji">
+        💌
+    </div>
+
+    <h1 class="menuTitle">
+        ZACH'S LITTLE QUIZ
+    </h1>
+
+    <p class="menuSubtitle">
+
+        I have a few questions for you...
+
+        <br>
+
+        Just go with it 👀
+
+    </p>
+
+    <button
+        id="startButton"
+        class="startButton">
+
+        START QUIZ →
+
+    </button>
+
+</div>
+
+
+<!-- NAME -->
+
+<div
+    id="nameScreen"
+    class="hidden">
+
+    <div class="nameEmoji">
+        📝
+    </div>
+
+    <h1 class="nameTitle">
+        First things first...
+    </h1>
+
+    <p class="nameSubtitle">
+        What's your name?
+    </p>
+
+    <input
+        id="nameInput"
+        class="nameInput"
+        type="text"
+        maxlength="40"
+        placeholder="Type your name...">
+
+    <button
+        id="nameContinue"
+        class="nameContinue">
+
+        CONTINUE →
+
+    </button>
+
+    <div
+        id="nameError"
+        class="nameError">
+    </div>
+
+</div>
+
+
+<!-- QUIZ -->
+
+<div
+    id="quiz"
+    class="hidden">
+
+    <div class="top">
+
+        <div class="quizTitle">
+            ZACH'S LITTLE QUIZ
+        </div>
+
+        <div
+            id="progressText"
+            class="progressText">
+        </div>
+
+    </div>
+
+    <div class="progress">
+
+        <div
+            id="progressBar"
+            class="progressBar">
+        </div>
+
+    </div>
+
+    <h1
+        id="question"
+        class="question">
+    </h1>
+
+    <div
+        id="answers"
+        class="answers">
+    </div>
+
+    <div class="buttonRow">
+
+        <button
+            id="submitButton"
+            class="submitButton">
+
+            SUBMIT
+
+        </button>
+
+        <button
+            id="nextButton"
+            class="nextButton hidden">
+
+            NEXT →
+
+        </button>
+
+    </div>
+
+    <div
+        id="feedback"
+        class="feedback">
+    </div>
+
+</div>
+
+
+<!-- HOMECOMING -->
+
+<div
+    id="homecoming"
+    class="hidden">
+
+    <div class="hocoEmoji">
+        💐
+    </div>
+
+    <h1 class="hocoTitle">
+        Okay...
+    </h1>
+
+    <div class="hocoQuestion">
+
+        I have one last question...
+
+        <br><br>
+
+        Will you go to
+        <strong>Homecoming</strong>
+        with me? 🥹
+
+    </div>
+
+    <div class="hocoArea">
+
+        <button id="yesButton">
+            YES ❤️
+        </button>
+
+        <button id="noButton">
+            NO 😭
+        </button>
+
+        <div
+            id="noMessage"
+            class="noMessage">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- YES -->
+
+<div
+    id="lovely"
+    class="hidden">
+
+    <div class="lovelyEmoji">
+        🥹❤️
+    </div>
+
+    <h1 class="lovelyTitle">
+        YOU SAID YES!!
+    </h1>
+
+    <p class="lovelyText">
+
+        <span
+            id="lovelyName"
+            class="lovelyName">
+        </span>,
+
+        I honestly really hoped
+        you would say yes.
+
+        <br><br>
+
+        I'm really happy I get to go
+        to Homecoming with you.
+
+        <br><br>
+
+        I can't wait to make some
+        really good memories with you. ❤️
+
+        <br><br>
+
+        Thanks for saying yes. 🥹
+
+    </p>
+
+    <div class="lovelyFooter">
+
+        — Zach
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* ==========================================
+   ZACH'S FORMSPREE
+========================================== */
+
+const FORM_ENDPOINT =
+    "https://formspree.io/f/mdeonawg";
+
+
+/* ==========================================
+   QUESTIONS
+========================================== */
+
+const questions = [
+
+    {
+        question:
+            "What's your favorite type of food? 🍕",
+
+        answers: [
+            "🍕 Pizza",
+            "🍔 Burgers",
+            "🍣 Sushi",
+            "🌮 Tacos"
+        ]
+    },
+
+    {
+        question:
+            "What's the better weekend activity? 👀",
+
+        answers: [
+            "🎬 Watching movies",
+            "🎮 Playing games",
+            "🛍️ Going shopping",
+            "🗣️ Hanging out"
+        ]
+    },
+
+    {
+        question:
+            "What's your ideal Friday night? 🌙",
+
+        answers: [
+            "🎬 Movie night",
+            "🍕 Getting food",
+            "🎮 Playing games",
+            "🎉 Going somewhere fun"
+        ]
+    },
+
+    {
+        question:
+            "What's better?",
+
+        answers: [
+            "🌅 Sunrise",
+            "🌇 Sunset",
+            "🌙 Nighttime",
+            "☀️ Daytime"
+        ]
+    },
+
+    {
+        question:
+            "How would you rate your day?",
+
+        answers: [
+            "😭 1/10",
+            "😐 5/10",
+            "🙂 8/10",
+            "🔥 10/10"
+        ]
+    },
+
+    {
+        question:
+            "Would you rather...",
+
+        answers: [
+            "🎢 Go to an amusement park",
+            "🏖️ Go to the beach",
+            "🎬 Go to the movies",
+            "🍕 Get food"
+        ]
+    },
+
+    {
+        question:
+            "Do you like going to dances? 💃",
+
+        answers: [
+            "YESSS",
+            "They're alright",
+            "Not really",
+            "Depends who I'm with 👀"
+        ]
+    },
+
+    {
+        question:
+            "Are you ready for the last question? 👀",
+
+        answers: [
+            "I'm ready",
+            "What's happening? 😭",
+            "I'm suspicious",
+            "JUST ASK IT 💀"
+        ]
+    }
+
+];
+
+
+/* VARIABLES */
+
+let currentQuestion = 0;
+let selectedAnswer = null;
+let submitted = false;
+let userName = "";
+let noCount = 0;
+let userAnswers = [];
+
+
+/* ELEMENTS */
+
+const menu =
+    document.getElementById("menu");
+
+const startButton =
+    document.getElementById("startButton");
+
+const nameScreen =
+    document.getElementById("nameScreen");
+
+const nameInput =
+    document.getElementById("nameInput");
+
+const nameContinue =
+    document.getElementById("nameContinue");
+
+const nameError =
+    document.getElementById("nameError");
+
+const quiz =
+    document.getElementById("quiz");
+
+const question =
+    document.getElementById("question");
+
+const answers =
+    document.getElementById("answers");
+
+const submitButton =
+    document.getElementById("submitButton");
+
+const nextButton =
+    document.getElementById("nextButton");
+
+const feedback =
+    document.getElementById("feedback");
+
+const progressText =
+    document.getElementById("progressText");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const homecoming =
+    document.getElementById("homecoming");
+
+const yesButton =
+    document.getElementById("yesButton");
+
+const noButton =
+    document.getElementById("noButton");
+
+const noMessage =
+    document.getElementById("noMessage");
+
+const lovely =
+    document.getElementById("lovely");
+
+const lovelyName =
+    document.getElementById("lovelyName");
+
+
+/* START */
+
+startButton.addEventListener(
+    "click",
+    function() {
+
+        menu.classList.add("hidden");
+
+        nameScreen.classList.remove(
+            "hidden"
+        );
+
+        nameInput.focus();
+
+    }
+);
+
+
+/* NAME */
+
+nameContinue.addEventListener(
+    "click",
+    function() {
+
+        const name =
+            nameInput.value.trim();
+
+        if (!name) {
+
+            nameError.textContent =
+                "Put your name in first 😭";
+
+            return;
+
+        }
+
+        userName = name;
+
+        nameScreen.classList.add(
+            "hidden"
+        );
+
+        quiz.classList.remove(
+            "hidden"
+        );
+
+        showQuestion();
+
+    }
+);
+
+
+nameInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Enter") {
+
+            nameContinue.click();
+
+        }
+
+    }
+);
+
+
+/* SHOW QUESTION */
+
+function showQuestion() {
+
+    selectedAnswer = null;
+
+    submitted = false;
+
+    submitButton.classList.remove(
+        "hidden"
+    );
+
+    nextButton.classList.add(
+        "hidden"
+    );
+
+    feedback.textContent = "";
+
+    const current =
+        questions[currentQuestion];
+
+    question.textContent =
+        current.question;
+
+    progressText.textContent =
+        (currentQuestion + 1)
+        + " / "
+        + questions.length;
+
+    progressBar.style.width =
+        (
+            ((currentQuestion + 1)
+            / questions.length)
+            * 100
+        )
+        + "%";
+
+    answers.innerHTML = "";
+
+
+    current.answers.forEach(
+        function(answerText) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.className =
+                "answer";
+
+            button.textContent =
+                answerText;
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    if (submitted) {
+                        return;
+                    }
+
+                    document
+                        .querySelectorAll(
+                            "#answers .answer"
+                        )
+                        .forEach(
+                            function(other) {
+
+                                other.classList.remove(
+                                    "selected"
+                                );
+
+                            }
+                        );
+
+                    button.classList.add(
+                        "selected"
+                    );
+
+                    selectedAnswer =
+                        answerText;
+
+                }
+            );
+
+
+            answers.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* SUBMIT */
+
+submitButton.addEventListener(
+    "click",
+    function() {
+
+        if (!selectedAnswer) {
+
+            feedback.textContent =
+                "Choose an answer first 👀";
+
+            return;
+
+        }
+
+        submitted = true;
+
+
+        userAnswers.push({
+
+            question:
+                questions[
+                    currentQuestion
+                ].question,
+
+            answer:
+                selectedAnswer
+
+        });
+
+
+        feedback.textContent =
+            "Answer saved ✓";
+
+        submitButton.classList.add(
+            "hidden"
+        );
+
+        nextButton.classList.remove(
+            "hidden"
+        );
+
+    }
+);
+
+
+/* NEXT */
+
+nextButton.addEventListener(
+    "click",
+    function() {
+
+        currentQuestion++;
+
+        if (
+            currentQuestion
+            >=
+            questions.length
+        ) {
+
+            quiz.classList.add(
+                "hidden"
+            );
+
+            homecoming.classList.remove(
+                "hidden"
+            );
+
+            return;
+
+        }
+
+        showQuestion();
+
+    }
+);
+
+
+/* MOVE NO BUTTON */
+
+function moveNoButton(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+    noCount++;
+
+
+    if (noCount === 1) {
+
+        noMessage.textContent =
+            "Nice try 😂";
+
+    }
+    else if (noCount === 2) {
+
+        noMessage.textContent =
+            "You really tried it 😭";
+
+    }
+    else if (noCount === 3) {
+
+        noMessage.textContent =
+            "BROOO 💀";
+
+    }
+    else if (noCount === 5) {
+
+        noMessage.textContent =
+            "Why are you chasing the NO button 😭";
+
+    }
+    else if (noCount === 10) {
+
+        noMessage.textContent =
+            "10 TIMES?! 😭💔";
+
+    }
+    else if (noCount > 10) {
+
+        noMessage.textContent =
+            "Okay you REALLY don't want to press it 😭";
+
+    }
+
+
+    const area =
+        document.querySelector(
+            ".hocoArea"
+        );
+
+
+    const maxX =
+        Math.max(
+            5,
+            area.clientWidth
+            -
+            noButton.offsetWidth
+            -
+            5
+        );
+
+
+    const maxY =
+        Math.max(
+            5,
+            area.clientHeight
+            -
+            noButton.offsetHeight
+            -
+            5
+        );
+
+
+    const randomX =
+        Math.floor(
+            Math.random()
+            * maxX
+        );
+
+
+    const randomY =
+        Math.floor(
+            Math.random()
+            * maxY
+        );
+
+
+    noButton.style.left =
+        randomX + "px";
+
+    noButton.style.top =
+        randomY + "px";
+
+    noButton.style.right =
+        "auto";
+
+}
+
+
+/* IPHONE */
+
+noButton.addEventListener(
+    "touchstart",
+    moveNoButton,
+    {
+        passive: false
+    }
+);
+
+
+/* CLICK FALLBACK */
+
+noButton.addEventListener(
+    "click",
+    moveNoButton
+);
+
+
+/* PC */
+
+noButton.addEventListener(
+    "mouseenter",
+    function() {
+
+        moveNoButton({
+            preventDefault:
+                function() {}
+        });
+
+    }
+);
+
+
+/* YES */
+
+yesButton.addEventListener(
+    "click",
+    function() {
+
+        homecoming.classList.add(
+            "hidden"
+        );
+
+        lovely.classList.remove(
+            "hidden"
+        );
+
+        lovelyName.textContent =
+            userName;
+
+
+        sendResults();
+
+    }
+);
+
+
+/* FORMSPREE */
+
+function sendResults() {
+
+    const submission = {
+
+        "Name":
+            userName,
+
+        "Homecoming Answer":
+            "YES ❤️",
+
+        "NO Button Attempts":
+            String(noCount)
+
+    };
+
+
+    userAnswers.forEach(
+        function(item, index) {
+
+            submission[
+                "Question "
+                +
+                (index + 1)
+                +
+                " - "
+                +
+                item.question
+            ] =
+                item.answer;
+
+        }
+    );
+
+
+    fetch(
+        FORM_ENDPOINT,
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "application/json",
+
+                "Accept":
+                    "application/json"
+
+            },
+
+            body:
+                JSON.stringify(
+                    submission
+                )
+
+        }
+    )
+    .then(
+        function(response) {
+
+            if (!response.ok) {
+
+                console.error(
+                    "Formspree submission failed."
+                );
+
+                return;
+
+            }
+
+            console.log(
+                "Everything was sent to Zach's Formspree!"
+            );
+
+        }
+    )
+    .catch(
+        function(error) {
+
+            console.error(
+                "Formspree error:",
+                error
+            );
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>
